@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Coding Demos</h1>
+<ul>
+  <% @demos.each do |demo| %>
+  <li>
+    <a href="<%= demo_path(demo) %>"><%= demo.title %></a>
+  </li>
+  <% end %>
+</ul>
+</body>
+</html>

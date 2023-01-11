@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1 id="title"><%= @demo.title %></h1>
+<p id="desc"><%= @demo.desc %></p>
+<canvas id="cnv" width="1" height="1"></canvas>
+<script type="text/javascript" src="<%= asset_path("classes/Tracker.js") %>"></script>
+<script type="text/javascript" src="<%= asset_path("classes/DoublePendulum.js") %>"></script>
+<script type="text/javascript" src="<%= asset_path("classes/ChompAI.js") %>"></script>
+<script type="text/javascript" src="<%= asset_path("classes/Chomp.js") %>"></script>
+<script>
+  // global variables used by multiple scripts
+  var g = 9.807;
+  var W = window.innerWidth;
+  var H = window.innerHeight;
+  var ORIGIN_X = 0;
+  var ORIGIN_Y = 0;
+  var TIME = 1 / 60;
+  var SCALE = 100;
+  var ctx = document.getElementById("cnv").getContext("2d");
+  var interval;
+
+  // if there is a running interval, clear it
+  if(typeof interval !== "undefined") {
+      clearInterval(interval);
+  }
+
+  // remove dp elements to prevent duplication
+  if(document.getElementById("len1") !== null) {
+
+      document.body.removeChild(document.getElementById("ll1"));
+      document.body.removeChild(document.getElementById("len1"));
+      document.body.removeChild(document.getElementById("lm1"));
+      document.body.removeChild(document.getElementById("mass1"));
+      document.body.removeChild(document.getElementById("lt1"));
+      document.body.removeChild(document.getElementById("theta1"));
+      document.body.removeChild(document.getElementById("space1"));
+      document.body.removeChild(document.getElementById("ll2"));
+      document.body.removeChild(document.getElementById("len2"));
+      document.body.removeChild(document.getElementById("lm2"));
+      document.body.removeChild(document.getElementById("mass2"));
+      document.body.removeChild(document.getElementById("lt2"));
+      document.body.removeChild(document.getElementById("theta2"));
+      document.body.removeChild(document.getElementById("newDP"));
+      document.body.removeChild(document.getElementById("space2"));
+
+  }
+
+  // remove chomp elements to prevent duplication
+  if(document.getElementById("rows") !== null) {
+
+      document.body.removeChild(document.getElementById("lr"));
+      document.body.removeChild(document.getElementById("rows"));
+      document.body.removeChild(document.getElementById("lc"));
+      document.body.removeChild(document.getElementById("cols"));
+      document.body.removeChild(document.getElementById("diff"));
+      document.body.removeChild(document.getElementById("lgc"));
+      document.body.removeChild(document.getElementById("goFirst"));
+      document.body.removeChild(document.getElementById("start"));
+      document.body.removeChild(document.getElementById("space1"));
+      document.body.removeChild(document.getElementById("turnText"));
+      document.body.removeChild(document.getElementById("space2"));
+
+  }
+
+  // upon resize, change canvas size
+  window.addEventListener("resize", function(e) {
+      let canvas = document.getElementById("cnv");
+      W = Math.floor(0.95 * window.innerWidth);
+      H = Math.floor((0.95 * window.innerHeight - (document.body.clientHeight - parseInt(canvas.height))));
+      canvas.width = W.toString();
+      canvas.height = H.toString();
+      ORIGIN_X = Math.floor(W / 2);
+      ORIGIN_Y = Math.floor(H / 3);
+  });
+
+</script>
+<script type="text/javascript" src="<%= asset_path(@demo.path) %>"></script>
+</body>
+</html>
